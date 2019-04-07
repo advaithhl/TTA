@@ -1,0 +1,29 @@
+{% extends "users/base.html" %}
+{% block content %}
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Train #</th>
+            <th scope="col">Train Name</th>
+            <th scope="col">Source</th>
+            <th scope="col">Destination</th>
+            <th scope="col">DOJ</th>
+            <th scope="col">Number of Tickets</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for booking in bookings %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ booking.train_no }}</td>
+                <td>{{ booking.train_name }}</td>
+                <td>{{ booking.source }}</td>
+                <td>{{ booking.destination }}</td>
+                <td>{{ booking.doj }}</td>
+                <td>{{ booking.ticket_cnt }}</td>
+                <td><a class="btn btn-outline-danger" href="#">Cancel Ticket</a></td>
+            </tr>
+        {% endfor %}
+        </tbody>
+{% endblock content %}

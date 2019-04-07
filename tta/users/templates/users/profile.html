@@ -20,3 +20,17 @@
         </form>
     </div>
 {% endblock content %}
+
+{% block sidebar %}
+<div class="col-md-4">
+    <div class="content-section">
+    <h3>Bookings</h3>
+    <p class='text-muted'>
+        <ul class="list-group">
+        <a class="list-group-item list-group-item-light" href="{% url 'new-booking' %}">Book New Ticket</a>
+        <a class="list-group-item list-group-item-light" href="{% url 'view-booking' %}">View Booked Tickets</a>
+        </ul>
+    </p>
+    </div>
+</div>
+{% endblock sidebar %}
