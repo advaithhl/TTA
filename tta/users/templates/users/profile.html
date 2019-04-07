@@ -1,25 +1,22 @@
 {% extends "users/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
     <div class="content-section">
     <div class="media">
         <div class="media-body">
         <h1 class="display-3">{{user.get_full_name}}</h2>
         <p class="text-secondary">{{user.email}}</p>
-        <hr>
-        <dl class="row">
-            <dt class="col-sm-3 my-2">Username</dt>
-            <dd class="col-sm-9 my-2">{{user.username}}</dd>
-            <dt class="col-sm-3 my-2">Age</dt>
-            <dd class="col-sm-9 my-2">{{user.passenger.age}}</dd>
-            <dt class="col-sm-3 my-2">Gender</dt>
-            <dd class="col-sm-9 my-2">{{user.passenger.gender}}</dd>
-            <dt class="col-sm-3 my-2">Address</dt>
-            <dd class="col-sm-9 my-2">{{user.passenger.address}}</dd>
-            <dt class="col-sm-3 my-2">Phone number</dt>
-            <dd class="col-sm-9 my-2">{{user.passenger.phone_no}}</dd>
-        </dl>
         </div>
     </div>
-    <!-- FORM HERE -->
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Profile Info</legend>
+                {{ u_form|crispy }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Confirm</button>
+            </div>
+        </form>
     </div>
 {% endblock content %}
