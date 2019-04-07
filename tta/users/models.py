@@ -31,4 +31,15 @@ class Passenger(User):
         max_length=16,
     )
 
+    class Meta:
+        verbose_name = 'Passenger'
 
+
+class Profile(models.Model):
+    passenger = models.OneToOneField(Passenger, on_delete=models.CASCADE)
+
+    class Meta:
+        verbose_name = 'Profile'
+
+    def __str__(self):
+        return f'{self.passenger.username} Profile'
