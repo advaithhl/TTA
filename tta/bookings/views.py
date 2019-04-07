@@ -35,5 +35,10 @@ def view_booking(request):
     return render(request, 'bookings/view.html', {'bookings':bookings})
 
 
+@login_required
+def wallet(request):
+    return render(request, 'bookings/wallet.html')
+
+
 def new_booking(request):
     return HttpResponse('New Bookings are not available yet!')
