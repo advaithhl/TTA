@@ -22,7 +22,7 @@
 {% endblock content %}
 
 {% block sidebar %}
-<div class="col-md-4">
+<div class="row-md-4">
     <div class="content-section">
     <h3>Bookings</h3>
     <p class='text-muted'>
@@ -34,3 +34,16 @@
     </div>
 </div>
 {% endblock sidebar %}
+
+{% block wallet %}
+<div class="row-md-4">
+    <div class="content-section">
+    <h3>Wallet</h3>
+    <p class='text-muted'>
+        <ul class="list-group">
+        <a class="list-group-item list-group-item-light" href="{% url 'wallet' %}">My Wallet</a>
+        </ul>
+    </p>
+    </div>
+</div>
+{% endblock %}

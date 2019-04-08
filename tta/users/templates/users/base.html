@@ -55,7 +55,10 @@
           {% endif %}
           {% block content %}{% endblock %}
         </div>
-        {% block sidebar %}{% endblock %}
+        <div class="col">
+          {% block sidebar %}{% endblock %}
+          {% block wallet %}{% endblock %}
+        </div>
       </div>
     </main>
 
