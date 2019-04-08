@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
 
 bookings = [
     {
@@ -32,7 +32,7 @@ bookings = [
 
 @login_required
 def view_booking(request):
-    return render(request, 'bookings/view.html', {'bookings':bookings})
+    return render(request, 'bookings/view.html', {'bookings': bookings})
 
 
 @login_required

@@ -7,7 +7,8 @@ class UserRegisterForm(UserCreationForm):
     first_name = forms.CharField(label='First name')
     last_name = forms.CharField(label='Last name')
     age = forms.IntegerField(min_value=18)
-    gender = forms.ChoiceField(choices=Passenger.GENDER_CHOICES, widget=forms.RadioSelect)
+    gender = forms.ChoiceField(
+        choices=Passenger.GENDER_CHOICES, widget=forms.RadioSelect)
     address = forms.CharField(max_length=300)
     email = forms.EmailField()
     phone_no = forms.CharField(label='Phone number')
@@ -31,7 +32,8 @@ class UserUpdateForm(forms.ModelForm):
     first_name = forms.CharField(label='First name')
     last_name = forms.CharField(label='Last name')
     age = forms.IntegerField(min_value=18)
-    gender = forms.ChoiceField(choices=Passenger.GENDER_CHOICES, widget=forms.RadioSelect)
+    gender = forms.ChoiceField(
+        choices=Passenger.GENDER_CHOICES, widget=forms.RadioSelect)
     address = forms.CharField(max_length=300)
     email = forms.EmailField()
     phone_no = forms.CharField(label='Phone number')
@@ -39,4 +41,4 @@ class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = Passenger
         fields = ['first_name', 'last_name', 'age', 'gender', 'address',
-                  'phone_no', 'username', 'email' ]
+                  'phone_no', 'username', 'email']
