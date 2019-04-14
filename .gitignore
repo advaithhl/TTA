@@ -8,3 +8,7 @@ __pycache__/
 local_settings.py
 db.sqlite3
 
+# Machine related
+.DS_Store
+.vscode
+.idea
