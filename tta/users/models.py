@@ -12,7 +12,7 @@ class Passenger(User):
 
     age = models.IntegerField(
         verbose_name='Age',
-        validators=[MinValueValidator],
+        validators=[MinValueValidator(18)],
     )
 
     gender = models.CharField(
