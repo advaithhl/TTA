@@ -28,7 +28,7 @@ class Passenger(User):
 
     phone_no = models.CharField(
         verbose_name='Phone',
-        max_length=16,
+        max_length=32,
     )
 
     class Meta:
