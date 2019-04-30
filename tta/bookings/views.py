@@ -1,9 +1,11 @@
+from time import sleep
+
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
 
-from .forms import SearchForm
+from .forms import AddMoneyForm, SearchForm
 
 bookings = [
     {
@@ -40,7 +42,20 @@ def view_booking(request):
 
 @login_required
 def wallet(request):
-    return render(request, 'bookings/wallet.html')
+    if request.method == 'POST':
+        addmoney_form = AddMoneyForm(request.POST)
+        if addmoney_form.is_valid():
+            increment = int(addmoney_form.cleaned_data.get('amount'))
+            wallet_obj = request.user.passenger.wallet
+            wallet_obj.balance += increment
+            wallet_obj.save()
+            messages.success(request, f'Added money successfully')
+            # sleep is to make the redirect more natural feeling
+            sleep(0.5)
+            return redirect('wallet')
+    else:
+        addmoney_form = AddMoneyForm()
+    return render(request, 'bookings/wallet.html', {'form': addmoney_form})
 
 
 @login_required

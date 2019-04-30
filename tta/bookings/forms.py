@@ -5,6 +5,20 @@ from django.core.exceptions import ValidationError
 
 from .models import Booking, Train
 
+increment_choices = (
+    ('100', '100'),
+    ('500', '500'),
+    ('1000', '1000'),
+    ('2000', '2000'),
+)
+
+
+class AddMoneyForm(forms.Form):
+    amount = forms.ChoiceField(
+        choices=increment_choices,
+        widget=forms.RadioSelect,
+    )
+
 
 class SearchForm(forms.Form):
     source = forms.CharField(
