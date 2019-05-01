@@ -1,3 +1,4 @@
+from django.contrib.messages import constants as messages
 """
 Django settings for tta project.
 
@@ -29,6 +30,10 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 INSTALLED_APPS = [
     'bookings.apps.BookingsConfig',

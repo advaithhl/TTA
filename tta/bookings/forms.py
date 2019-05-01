@@ -29,14 +29,14 @@ class SearchForm(forms.Form):
         label='Destination',
         max_length=30,
     )
-    date = forms.DateField(
+    doj = forms.DateField(
         label='Date',
     )
 
-    def clean_date(self):
+    def clean_doj(self):
         cd = self.cleaned_data
-        booking_date = cd.get('date')
+        booking_date = cd.get('doj')
         if booking_date < date.today() + timedelta(days=1):
             raise ValidationError('This date has already passed!')
 
-        return cd
+        return booking_date

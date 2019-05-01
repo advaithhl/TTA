@@ -1,0 +1,27 @@
+{% extends "bookings/search_results_base.html" %}
+{% load booking_date_format %}
+{% block table %}
+<table class="table">
+    <thead>
+        <tr>
+        <th scope="col">#</th>
+        <th scope="col">Train Name</th>
+        <th scope="col">Departure Time</th>
+        <th scope="col">Travel Time</th>
+        <th scope="col">Seats available</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for train in trains %}
+        <tr>
+            <th scope="row">{{ forloop.counter }}</th>
+            <td>{{ train.train_name }}</td>
+            <td>{{ train.departure_time|time:"H:i" }}</td>
+            <td>{{ train.travel_time|duration }}</td>
+            <td>{{ train.seats_remaining }}</td>
+            <td><a class="btn btn-outline-success" href="#">Book</a></td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock table %}

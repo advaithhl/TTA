@@ -1,11 +1,12 @@
 from time import sleep
+from urllib.parse import urlencode
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, reverse
 
 from .forms import AddMoneyForm, SearchForm
+from .models import Train
 
 bookings = [
     {
@@ -63,10 +64,24 @@ def search(request):
     if request.method == 'POST':
         search_form = SearchForm(request.POST)
         if search_form.is_valid():
-            source = search_form.cleaned_data.get('source')
-            messages.success(request, f'Source: {source}')
-            # redirect to results page later
-            return redirect('search')
+            src = search_form.cleaned_data.get('source')
+            dst = search_form.cleaned_data.get('destination')
+            doj = search_form.cleaned_data.get('doj').strftime("%b %d, %Y")
+            trains = Train.objects.filter(
+                source=src, destination=dst)
+            if trains:
+                return render(request, 'bookings/search_results.html',
+                              {'trains': trains, 'source': src, 'destination': dst, 'doj': doj})
+            else:
+                messages.error(request, f'No trains found from {src} to {dst}')
+                return redirect('search')
+
+            '''
+            base_url = reverse('search-results')
+            query_string = urlencode({'src': src, 'dst': dst, 'doj': doj})
+            url = f'{base_url}?{query_string}'
+            return redirect(url)
+            '''
     else:
         search_form = SearchForm()
     return render(request, 'bookings/search.html', {'form': search_form})
