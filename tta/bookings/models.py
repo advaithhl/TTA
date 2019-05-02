@@ -8,7 +8,7 @@ from users.models import Passenger
 
 class Wallet(models.Model):
     passenger = models.OneToOneField(Passenger, on_delete=models.CASCADE)
-    balance = models.FloatField(
+    balance = models.IntegerField(
         default=0,
         validators=[MinValueValidator(0)]
     )
