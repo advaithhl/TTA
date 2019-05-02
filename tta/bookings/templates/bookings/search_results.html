@@ -9,17 +9,19 @@
         <th scope="col">Departure Time</th>
         <th scope="col">Travel Time</th>
         <th scope="col">Seats available</th>
+        <th scope="col">Fare</th>
         </tr>
     </thead>
     <tbody>
     {% for train in trains %}
         <tr>
             <th scope="row">{{ forloop.counter }}</th>
-            <td>{{ train.train_name }}</td>
-            <td>{{ train.departure_time|time:"H:i" }}</td>
-            <td>{{ train.travel_time|duration }}</td>
-            <td>{{ train.seats_remaining }}</td>
-            <td><a class="btn btn-outline-success" href="#">Book</a></td>
+            <td align="center">{{ train.train_name }}</td>
+            <td align="center">{{ train.departure_time|time:"H:i" }}</td>
+            <td align="center">{{ train.travel_time|duration }}</td>
+            <td align="center">{{ train.seats_remaining }}</td>
+            <td align="center">{{ train.fare }}</td>
+            <td align="center"><a class="btn btn-outline-success" href="#">Book</a></td>
         </tr>
     {% endfor %}
     </tbody>

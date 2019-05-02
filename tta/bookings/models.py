@@ -53,6 +53,11 @@ class Train(models.Model):
         verbose_name='Travel time'
     )
 
+    fare = models.IntegerField(
+        verbose_name='Fare',
+        validators=[MinValueValidator(100)],
+    )
+
     class Meta:
         verbose_name = 'Train'
 
