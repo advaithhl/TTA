@@ -19,11 +19,25 @@ def save_wallet(sender, instance, **kwargs):
 
 @receiver(post_save, sender=Booking)
 def decrement_seats(sender, instance, **kwargs):
-    instance.train.seats_remaining -= instance.seats_booked
+    instance.train.seats_remaining -= int(instance.seats_booked)
     instance.train.save()
 
 
 @receiver(post_delete, sender=Booking)
 def increment_seats(sender, instance, **kwargs):
-    instance.train.seats_remaining += instance.seats_booked
+    instance.train.seats_remaining += int(instance.seats_booked)
     instance.train.save()
+
+
+@receiver(post_save, sender=Booking)
+def pay(sender, instance, **kwargs):
+    fare = int(instance.train.fare) * int(instance.seats_booked)
+    instance.passenger.wallet.balance -= fare
+    instance.passenger.wallet.save()
+
+
+@receiver(post_delete, sender=Booking)
+def refund(sender, instance, **kwargs):
+    fare = int(instance.train.fare) * int(instance.seats_booked)
+    instance.passenger.wallet.balance += fare
+    instance.passenger.wallet.save()

@@ -32,6 +32,10 @@ class SearchForm(forms.Form):
     doj = forms.DateField(
         label='Date',
     )
+    seats = forms.IntegerField(
+        label='Seats',
+        min_value=1,
+    )
 
     def clean_doj(self):
         cd = self.cleaned_data

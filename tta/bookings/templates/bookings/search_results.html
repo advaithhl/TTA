@@ -1,4 +1,4 @@
-{% extends "bookings/search_results_base.html" %}
+{% extends "bookings/booking_base.html" %}
 {% load booking_date_format %}
 {% block table %}
 <table class="table">
@@ -21,7 +21,11 @@
             <td align="center">{{ train.travel_time|duration }}</td>
             <td align="center">{{ train.seats_remaining }}</td>
             <td align="center">{{ train.fare }}</td>
-            <td align="center"><a class="btn btn-outline-success" href="#">Book</a></td>
+            <td align="center">
+                <a class="btn btn-outline-success" href="{% url 'book' %}?id={{ train.id }}&{{ url_query }}">
+                    Book
+                </a>
+            </td>
         </tr>
     {% endfor %}
     </tbody>
