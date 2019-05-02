@@ -1,10 +1,20 @@
 {% extends "users/base.html" %}
 {% block content %}
+    <div class="content-section">
+        <legend class="border-bottom mb-4">View Booked Tickets</legend>
+    {% if bookings|length == 0 %}
+    <p>You have no bookings yet.</p>
+    <small class="text-muted">
+        New booking?<a class="ml-2" href="{% url 'search' %}">Click here</a>
+    </small>
+    {% else %}
+    <p>You have {{ bookings|length }} bookings.</p>
+    </div>
     <table class="table">
-        <thead class="thead-dark">
+        <thead class="table">
             <tr>
             <th scope="col">#</th>
-            <th scope="col">Train #</th>
+            <th scope="col">PNR #</th>
             <th scope="col">Train Name</th>
             <th scope="col">Source</th>
             <th scope="col">Destination</th>
@@ -16,14 +26,16 @@
         {% for booking in bookings %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ booking.train_no }}</td>
-                <td>{{ booking.train_name }}</td>
-                <td>{{ booking.source }}</td>
-                <td>{{ booking.destination }}</td>
-                <td>{{ booking.doj }}</td>
-                <td>{{ booking.ticket_cnt }}</td>
-                <td><a class="btn btn-outline-danger" href="#">Cancel Ticket</a></td>
+                <td align="center">{{ booking.pnr_no }}</td>
+                <td align="center">{{ booking.train.train_name }}</td>
+                <td align="center">{{ booking.train.source|upper }}</td>
+                <td align="center">{{ booking.train.destination|upper }}</td>
+                <td align="center">{{ booking.date }}</td>
+                <td align="center">{{ booking.seats_booked }}</td>
+                <td align="center"><a class="btn btn-outline-danger" href="{% url 'cancel' %}?id={{ booking.id }}">Cancel Ticket</a></td>
             </tr>
         {% endfor %}
         </tbody>
+    </table>
+    {% endif %}
 {% endblock content %}

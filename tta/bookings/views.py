@@ -10,36 +10,10 @@ from django.shortcuts import redirect, render, reverse
 from .forms import AddMoneyForm, SearchForm
 from .models import Booking, Train
 
-bookings = [
-    {
-        'train_no': 16601,
-        'train_name': 'Jan Shatabdi',
-        'source': 'Kollam',
-        'destination': 'Kochi',
-        'doj': '8 April, 2019',
-        'ticket_cnt': 3
-    },
-    {
-        'train_no': 16351,
-        'train_name': 'Venad',
-        'source': 'Kochi',
-        'destination': 'Trivandrum',
-        'doj': '20 May, 2019',
-        'ticket_cnt': 4
-    },
-    {
-        'train_no': 55901,
-        'train_name': 'Malabar Express',
-        'source': 'Kannur',
-        'destination': 'Kollam',
-        'doj': '21 June, 2019',
-        'ticket_cnt': 4
-    },
-]
-
 
 @login_required
 def view_booking(request):
+    bookings = Booking.objects.filter(passenger=request.user.passenger)
     return render(request, 'bookings/view.html', {'bookings': bookings})
 
 
@@ -116,4 +90,16 @@ def book(request):
         )
         new_booking.save()
         messages.success(request, f'Tickets booked successfully!')
+    return redirect('profile')
+
+
+@login_required
+def cancel(request):
+    if request.method == 'GET':
+        # if GET dict is empty
+        if not request.GET:
+            return redirect('profile')
+        booking = Booking.objects.filter(id=int(request.GET.get('id')))[0]
+        booking.delete()
+        messages.success(request, f'Ticket cancelled')
     return redirect('profile')
