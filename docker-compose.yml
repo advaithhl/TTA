@@ -1,7 +1,9 @@
 services:
     web:
         build: .
-        command: python tta/manage.py runserver 0.0.0.0:8000
+        command: >
+            sh -c "python tta/manage.py migrate --no-input &&
+                   python tta/manage.py runserver 0.0.0.0:8000"
         volumes:
             - .:/code
         ports:
